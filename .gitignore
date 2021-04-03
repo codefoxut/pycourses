@@ -107,6 +107,7 @@ celerybeat.pid
 env/
 venv/
 ENV/
+myenv/
 env.bak/
 venv.bak/
 
@@ -129,3 +130,5 @@ dmypy.json
 .pyre/
 
 .idea/
+#build_application/10_mega_projects_course/data-visualization-bookeh/notebooks/csv_files/*.csv
+#build_application/10_mega_projects_course/data-visualization-bookeh/notebooks/htmls/*.html
