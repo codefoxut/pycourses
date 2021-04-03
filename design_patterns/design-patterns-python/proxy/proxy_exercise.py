@@ -8,7 +8,8 @@ class Person:
     def drive(self):
         return 'driving'
 
-    def drink_and_drive(self):
+    @staticmethod
+    def drink_and_drive():
         return 'driving while drunk'
 
 
