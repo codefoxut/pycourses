@@ -4,5 +4,6 @@
 -r build_application/mega_10_projects_course/motion_detector/requirements_md.txt
 
 -r build_application/mega_10_projects_course/data_collector/requirements_dc_app.txt
+-r build_application/mega_10_projects_course/final_project/requirements_fp.txt
 flask
 black
