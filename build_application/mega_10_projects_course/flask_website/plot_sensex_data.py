@@ -1,25 +1,10 @@
-
-from flask import Flask, render_template
-
-app = Flask(__name__)
-
-
-@app.route('/')
-def home():
-    return render_template("home.html")
+import pandas_datareader.data as web
+from bokeh.embed import components
+from bokeh.plotting import figure
+from bokeh.resources import CDN
 
 
-@app.route('/about/')
-def about():
-    return render_template("about.html")
-
-
-@app.route('/plot/')
-def plot():
-    import pandas_datareader.data as web
-    from bokeh.plotting import figure, show, output_file
-    from bokeh.embed import components
-    from bokeh.resources import CDN
+def plot_data():
     dfs = web.DataReader('^SNX', 'stooq')
 
     def inc_dec(c, o):
@@ -58,13 +43,5 @@ def plot():
            line_color="black")
 
     script1, div1 = components(f)
-    print(div1, script1)
     cdn_js = CDN.js_files
-    cdn_css = CDN.css_files
-    print(cdn_css)
-
-    return render_template("plot.html", script1=script1, div1=div1, cdn_js=cdn_js[0], cdn_css=cdn_css)
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    return script1, div1, cdn_js

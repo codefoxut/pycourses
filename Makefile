@@ -14,12 +14,12 @@ bootstrap-all:
 
 bootstrap-motion-detector:
 	@make bootstrap-init APP_NAME=motion_detector
-	myenv/venv_motion_detector/bin/pip3 install -r build_application/10_mega_projects_course/motion_detector/requirements_md.txt
+	myenv/venv_motion_detector/bin/pip3 install -r build_application/mega_10_projects_course/motion_detector/requirements_md.txt
 
 
 bootstrap-web-scrap:
 	@make bootstrap-init APP_NAME=web_scraper
-	myenv/venv_web_scraper/bin/pip3 install -r build_application/10_mega_projects_course/web_scraping/requirements_webscrap.txt
+	myenv/venv_web_scraper/bin/pip3 install -r build_application/mega_10_projects_course/web_scraping/requirements_webscrap.txt
 
 scrap-web:
 	@myenv/venv_web_scraper/bin/jupyter notebook
