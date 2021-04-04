@@ -2,5 +2,5 @@
 
 
 -r build_application/10_mega_projects_course/motion_detector/requirements_md.txt
-
+flask
 black
