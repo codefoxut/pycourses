@@ -74,7 +74,7 @@ class Creature:
 
 
 if __name__ == '__main__':
-    game1= Game()
+    game1 = Game()
     goblin = Creature(game1, 'Goblin', 2, 2)
     print(goblin)
 

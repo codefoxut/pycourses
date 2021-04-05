@@ -8,16 +8,8 @@ class Event(list):
 class Game:
     def __init__(self):
         self.rat_added = Event()
-        self.rats = []
-
-    def calculate_attack(self, rat):
-        self.rat_added.append(rat)
-        self.rats.append(rat)
-        return len(self.rats)
-
-    def reduce_attack(self, rat):
-        self.rat_added.remove(rat)
-        self.rats.remove(rat)
+        self.rat_dies = Event()
+        self.notify_rat = Event()
 
 
 class Rat:
@@ -25,14 +17,29 @@ class Rat:
         self.game = game
         self.attack = 1
 
-        self.attack = self.game.calculate_attack(self)
+        game.rat_added.append(self.rat_added)
+        game.notify_rat.append(self.notify_rat)
+        game.rat_dies.append(self.rat_dies)
+
+        self.game.rat_added(self)
 
     def __exit__(self, *args, **kwargs):
-        self.game.reduce_attack(self)
+        self.game.rat_dies(self)
 
     def __enter__(self):
         return self
 
+    def rat_added(self, which_rat):
+        if which_rat != self:
+            self.attack += 1
+            self.game.notify_rat(which_rat)
+
+    def notify_rat(self, which_rat):
+        if which_rat == self:
+            self.attack += 1
+
+    def rat_dies(self, which_rat):
+        self.attack -= 1
 
 
 if __name__ == '__main__':
