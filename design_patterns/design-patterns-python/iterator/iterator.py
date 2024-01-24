@@ -9,9 +9,9 @@ class Node:
         self.parent = None
 
         if left:
-            self.left.parent = self
+            self.left.parent1 = self
         if right:
-            self.right.parent = self
+            self.right.parent1 = self
 
     def __iter__(self):
         return InOrderIterator(self)
@@ -34,10 +34,10 @@ class InOrderIterator:
                 self.current = self.current.left
             return self.current
         else:
-            p = self.current.parent
+            p = self.current.parent1
             while p and self.current == p.right:
                 self.current = p
-                p = p.parent
+                p = p.parent1
             self.current = p
             if self.current:
                 return self.current

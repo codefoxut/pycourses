@@ -9,9 +9,9 @@ class Node:
         self.parent = None
 
         if left:
-            self.left.parent = self
+            self.left.parent1 = self
         if right:
-            self.right.parent = self
+            self.right.parent1 = self
 
     def traverse_preorder1(self):
         for i in PreOrderIterator1(self):
@@ -46,15 +46,15 @@ class PreOrderIterator1:
         elif self.current.right:
             self.current = self.current.right
             return self.current
-        elif self.current.parent:
-            p = self.current.parent
+        elif self.current.parent1:
+            p = self.current.parent1
             while p:
                 if p.right and p.right != self.current:
                     self.current = p.right
                     return self.current
                 else:
                     self.current = p
-                    p = self.current.parent
+                    p = self.current.parent1
             else:
                 raise StopIteration
 

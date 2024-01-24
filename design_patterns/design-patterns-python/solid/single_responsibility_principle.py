@@ -1,4 +1,8 @@
-"""Example of the concepts."""
+"""Example of the concepts.
+
+the Single Responsibility Principle, which states that a class should only have one reason to change.
+Also tied to the concept of Separation of Concerns which is basically stating the same thing.
+"""
 
 
 class Journal:
@@ -20,12 +24,13 @@ class Journal:
 
 
 class PersistenceManager:
+
     @staticmethod
-    def save_to_file(journal, filename):
-        with open(filename, 'w') as f:
+    def save_to_file(journal, file_name):
+        with open(file_name, 'w') as f:
             f.write(str(journal))
 
-    def load(self, filename):
+    def load(self, file_name):
         """read the filename and create object."""
 
     def load_from_web(self, uri):

@@ -1,3 +1,10 @@
+"""
+the Open-Closed Principle, which states that classes should be open for extension,
+but closed for modification. In other words, you should extend functionality using
+interfaces and inheritance rather than jumping back into already-written/tested
+code and adding to it or changing it.
+"""
+
 from enum import Enum
 
 
@@ -23,21 +30,21 @@ class Product:
 class ProductFilter:
     @staticmethod
     def filter_by_color(products, color):
-        for p in products:
-            if p.color == color:
-                yield p
+        for item in products:
+            if item.color == color:
+                yield item
 
     @staticmethod
     def filter_by_size(products, size):
-        for p in products:
-            if p.size == size:
-                yield p
+        for item in products:
+            if item.size == size:
+                yield item
 
     @staticmethod
     def filter_by_size_and_color(products, size, color):
-        for p in products:
-            if p.size == size and p.color == color:
-                yield p
+        for item in products:
+            if item.size == size and item.color == color:
+                yield item
 
 
 # specification
@@ -49,6 +56,9 @@ class Specification:
     def __and__(self, other):
         return AndSpecification(self, other)
 
+    def __or__(self, other):
+        return OrSpecification(self, other)
+
 
 class AndSpecification(Specification):
     def __init__(self, *args):
@@ -56,6 +66,16 @@ class AndSpecification(Specification):
 
     def is_satisfied(self, item):
         return all(map(
+            lambda spec: spec.is_satisfied(item), self.args
+        ))
+
+
+class OrSpecification(Specification):
+    def __init__(self, *args):
+        self.args = args
+
+    def is_satisfied(self, item):
+        return any(map(
             lambda spec: spec.is_satisfied(item), self.args
         ))
 
@@ -93,32 +113,35 @@ if __name__ == '__main__':
     tree = Product('Tree', Color.GREEN, Size.LARGE)
     house = Product('House', Color.BLUE, Size.LARGE)
 
-    products = [apple, tree, house]
+    product_list = [apple, tree, house]
 
     pf = ProductFilter()
     print(" Green products (old):")
-    for p in pf.filter_by_color(products, Color.GREEN):
+    for p in pf.filter_by_color(product_list, Color.GREEN):
         print(f' - {p.name} is green.')
 
+    bf = BetterFilter()
     print(" Green products (new):")
     green = ColorSpecification(Color.GREEN)
-    for p in BetterFilter().filter(products, green):
+    for p in bf.filter(product_list, green):
         print(f' - {p.name} is green')
 
     print("large products.")
     large = SizeSpecification(Size.LARGE)
-    for p in BetterFilter().filter(products, large):
+    for p in bf.filter(product_list, large):
         print(f' - {p.name} is large!')
 
     print("large blue products.")
-    large_blue = AndSpecification(
-        large, ColorSpecification(Color.BLUE))
-    for p in BetterFilter().filter(products, large_blue):
+    large_blue = AndSpecification(SizeSpecification(Size.LARGE), ColorSpecification(Color.BLUE))
+    for p in bf.filter(product_list, large_blue):
         print(f' - {p.name} is large and blue.')
 
     print("small green products.")
-    small_green = SizeSpecification(Size.SMALL) & \
-        ColorSpecification(Color.BLUE)
-    for p in BetterFilter().filter(products, small_green):
+    small_green = SizeSpecification(Size.SMALL) & ColorSpecification(Color.GREEN)
+    for p in bf.filter(product_list, small_green):
         print(f' - {p.name} is small and green.')
 
+    print("large green products.")
+    large_or_green = SizeSpecification(Size.LARGE) | ColorSpecification(Color.GREEN)
+    for p in bf.filter(product_list, large_or_green):
+        print(f' - {p.name} is large or green.')

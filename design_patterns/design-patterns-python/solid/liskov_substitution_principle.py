@@ -1,4 +1,8 @@
 # LSP
+"""
+The Liskov Substitution Principle states that subtypes should be substitutable for their base types.
+"""
+
 
 class Rectangle:
     def __init__(self, width, height):
@@ -29,11 +33,11 @@ class Rectangle:
         self._height = value
 
 
-def use_it(rc):
-    w = rc.width
-    rc.height = 10
+def use_it(obj):
+    w = obj.width
+    obj.height = 10
     expected = int(w*10)
-    print(f'Expected an area of {expected}, got {rc.area}')
+    print(f'Expected an area of {expected}, got {obj.area}')
 
 
 # creating a separate class was the wrong idea here.

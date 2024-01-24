@@ -1,8 +1,15 @@
-# ISP
+# Interface Segregation Principle
+"""
+The Interface Segregation Principle is simple: don't throw everything in
+the kitchen sink into an interface because then all its users will have
+to implement things they do not need. Instead, split the interface into
+several smaller ones.
+"""
+
 from abc import abstractmethod
 
 
-class Machine:
+class Machine:  # not good.
     def print(self, document):
         raise NotImplementedError
 
@@ -37,6 +44,13 @@ class OldFashionedPrinter(Machine):
 
 
 # #######
+
+class Fax:
+    @abstractmethod
+    def fax(self, document):
+        pass
+
+
 class Printer:
     @abstractmethod
     def print(self, document):
@@ -61,7 +75,8 @@ class PhotoCopier(Printer, Scanner):
     def scan(self, doc):
         pass
 
-class MultiFunctionDevice(Printer, Scanner):
+
+class MultiFunctionDevice(Printer, Scanner, Fax):
     @abstractmethod
     def print(self, doc):
         pass
@@ -72,9 +87,10 @@ class MultiFunctionDevice(Printer, Scanner):
 
 
 class MultiFunctionMachine(MultiFunctionDevice):
-    def __init__(self, printer, scanner):
+    def __init__(self, printer, scanner, fax):
         self.scanner = scanner
         self.printer = printer
+        self.fax = fax
 
     def print(self, doc):
         self.printer.print(doc)
@@ -82,9 +98,8 @@ class MultiFunctionMachine(MultiFunctionDevice):
     def scan(self, doc):
         self.scanner.scan(doc)
 
-
-
-
+    def fax (self, doc):
+        self.fax.fax(doc)
 
 
 if __name__ == '__main__':
