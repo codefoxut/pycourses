@@ -1,0 +1,19 @@
+-c constraints.txt
+
+jupyterlab
+# ipykernel
+
+python-dotenv
+
+
+openai
+langchain
+langchain-openai
+langchain-community
+
+
+
+lxml
+pypdf
+chromadb
+numexpr
