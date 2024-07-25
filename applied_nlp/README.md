@@ -1,0 +1,1 @@
+Course URL: [Applied Generative AI and Natural Language Processing](https://www.udemy.com/course/applied-nlp-with-python)
