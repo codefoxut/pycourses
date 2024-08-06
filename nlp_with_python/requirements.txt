@@ -8,5 +8,6 @@ pandas
 nltk[twitter]
 scikit-learn
 jupyter
+tensorflow
 
 pypdf
