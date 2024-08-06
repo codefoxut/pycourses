@@ -5,8 +5,9 @@ numpy
 keras
 matplotlib
 pandas
-nltk
+nltk[twitter]
 scikit-learn
 jupyter
+tensorflow
 
 pypdf
